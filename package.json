@@ -1,0 +1,43 @@
+{
+  "name": "ens-web-ext",
+  "version": "0.0.1",
+  "description": "bridge between decentrized and traditional www",
+  "scripts": {
+    "dev": "webextension-toolbox dev",
+    "build": "webextension-toolbox build",
+    "lint": "eslint app/**/*.{js,jsx} --fix"
+  },
+  "devDependencies": {
+    "css-loader": "^4.3.0",
+    "style-loader": "^1.2.1",
+    "webextension-toolbox": "^3.0.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.1.4",
+    "eslint": "^7.8.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-standard": "^4.0.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.5.2",
+    "ethers": "^5.0.14",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "lint-staged": {
+    "app/**/*.{js,jsx}": [
+      "eslint  app/**/*.{js,jsx} --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
