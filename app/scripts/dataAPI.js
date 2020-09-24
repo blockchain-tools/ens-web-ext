@@ -50,15 +50,18 @@ var dataAPI = {
     }
   },
 
-  set (ensName, object) {
-    ensMap[ensName] = JSON.stringify(object)
+  set (network, ensName, object) {
+    if (!ensMap[network]) {
+      ensMap[network] = {}
+    }
+    ensMap[network][ensName] = JSON.stringify(object)
   },
-  get (ensName) {
-    if (ensMap[ensName]) {
-      return JSON.parse(ensMap[ensName])
+  get (network, ensName) {
+    if (ensMap[network] && ensMap[network][ensName]) {
+      return JSON.parse(ensMap[network][ensName])
     }
     return null
   }
 }
 
-module.exports = dataAPI
+export default dataAPI

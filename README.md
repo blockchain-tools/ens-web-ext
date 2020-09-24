@@ -6,21 +6,21 @@ bridge between decentrized and traditional www
 
 ## Install
 
-	$ npm install
+	$ yarn
 
 ## Development
 
-    npm run dev chrome
-    npm run dev firefox
-    npm run dev opera
-    npm run dev edge
+    yarn dev chrome
+    yarn dev firefox
+    yarn dev opera
+    yarn dev edge
 
 ## Build
 
-    npm run build chrome
-    npm run build firefox
-    npm run build opera
-    npm run build edge
+    yarn build chrome
+    yarn build firefox
+    yarn build opera
+    yarn build edge
 
 ## Environment
 
