@@ -8,7 +8,7 @@ import ContentHash from '../../components/ContentHash'
 
 function index () {
   return (
-    <Container className='main'>
+    <Container className='main' fluid={true}>
       <Tabs defaultActiveKey="text" id="uncontrolled-tab-example">
         <Tab eventKey="text" title="Text">
           <Text />

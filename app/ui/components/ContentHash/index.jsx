@@ -1,38 +1,60 @@
-import React, { useState, useEffect } from 'react'
-import ListGroup from 'react-bootstrap/ListGroup'
-// import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import React, { useState, useLayoutEffect } from 'react'
+import Table from 'react-bootstrap/Table'
 import Card from 'react-bootstrap/Card'
+import EditableInput from '../EditableInput'
 
 function index () {
   const [EnsContentHashes, setEnsContentHashes] = useState([])
 
-  useEffect(() => {
-    browser.runtime.sendMessage({ command: 'GetAllEnsContentHashes' })
+  useLayoutEffect(() => {
+    browser.runtime.sendMessage({ command: 'GetConfiguration', key: 'EnsContentHashes' })
       .then((message) => {
         setEnsContentHashes(message)
       })
   }, [])
+
+  const update = (newObj) => {
+    console.info(newObj)
+    const newEnsContentHashes = EnsContentHashes.map((d) => {
+      if (d.name === newObj.name) return newObj
+      return d
+    })
+    browser.runtime.sendMessage({ command: 'SaveConfiguration', key: 'EnsContentHashes', value: newEnsContentHashes })
+      .then((message) => {
+        setEnsContentHashes(message)
+      })
+    // console.info(newEnsContentHashes)
+  }
   return (
     <Card>
       <Card.Body>
-        <Card.Title><a target='_blank' rel="noreferrer" href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1577.md">eip-1577</a></Card.Title>
         <Card.Text>
-          <ListGroup>
+          <Table responsive>
+            <thead>
+              <tr>
+                <th>Protocal</th>
+                <th>Gateway</th>
+              </tr>
+            </thead>
             {
               EnsContentHashes && EnsContentHashes.map((d) => {
                 return (
-                  <ListGroup.Item key={d}>
-                    <Row>
-                      <Col>{d}</Col>
-                    </Row>
-                  </ListGroup.Item>
+                  <tr key={d.name}>
+                    <td>{d.name}</td>
+                    <td>
+                      <EditableInput label={d.gateway} onBlur={(newText) => update({
+                        ...d,
+                        gateway: newText
+                      })} />
+                    </td>
+                  </tr>
                 )
               })
             }
-          </ListGroup>
+          </Table>
         </Card.Text>
+        <Card.Footer style={{ textAlign: 'right' }}><a target='_blank' rel="noreferrer" href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1577.md">eip-1577</a></Card.Footer>
+
       </Card.Body>
     </Card>
   )

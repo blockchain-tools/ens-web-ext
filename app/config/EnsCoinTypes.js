@@ -1,4 +1,4 @@
-const EnsCoinTypes = [
+export const EnsCoinTypes = [
   {
     name: 'Bitcoin',
     value: 0,
@@ -95,24 +95,24 @@ const EnsCoinTypes = [
 
 ]
 
-browser.runtime.onStartup && browser.runtime.onStartup.addListener(() => {
-  console.log('extension started: ' + Date.now())
-})
+// browser.runtime.onStartup && browser.runtime.onStartup.addListener(() => {
+//   console.log('extension started: ' + Date.now())
+// })
 
-const extensionURL = browser.extension.getURL('') + 'index.html'
+// const extensionURL = browser.extension.getURL('') + 'index.html'
 
-browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (sender && sender.url.startsWith(extensionURL)) {
-    if (request.command === 'GetAllEnsCoinTypes') {
-      sendResponse(getAllEnsCoinTypes())
-    }
-  }
-})
+// browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+//   if (sender && sender.url.startsWith(extensionURL)) {
+//     if (request.command === 'GetAllEnsCoinTypes') {
+//       sendResponse(getAllEnsCoinTypes())
+//     }
+//   }
+// })
 
-function getAllEnsCoinTypes () {
-  return EnsCoinTypes
-}
+// function getAllEnsCoinTypes () {
+//   return EnsCoinTypes
+// }
 
-export {
-  getAllEnsCoinTypes
-}
+// export {
+//   getAllEnsCoinTypes
+// }

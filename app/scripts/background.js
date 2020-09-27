@@ -1,44 +1,6 @@
-// var contentHash = require('content-hash/dist/index')
-import dataAPI from './dataAPI.js'
+import cacheAPI from './cache.js'
 import { getAllEnsContentHashes, getAllEnsTextKeys, getAllEnsCoinTypes, getCurrentEtherNetwork, getCurrentEtherProvider } from './../config.js'
 import { contentHash2Url, isEthAddress } from './utils'
-
-const extensionURL = browser.extension.getURL('') + 'index.html'
-
-browser.runtime.onStartup && browser.runtime.onStartup.addListener(() => {
-  console.log('extension started: ' + Date.now())
-})
-
-browser.runtime.onInstalled && browser.runtime.onInstalled.addListener(() => {
-  console.log('extension installed: ' + Date.now())
-
-  dataAPI.loadMemoryData(() => {
-    var querySuccess = function (tabs) {
-      console.log(tabs)
-      if (tabs && tabs.length > 0) {
-        browser.tabs.update(tabs[0].id, { active: true }).then(function (tab) {
-          // browser.tabs.sendMessage(tab.id,{'command':'FETCH_DATA_FROM_INDEXDB'}).then(()=>{},()=>{});
-        })
-      } else {
-        browser.tabs.create({
-          url: extensionURL
-        }).then(function (tab) {
-          // browser.tabs.sendMessage(tab.id,{'command':'FETCH_DATA_FROM_INDEXDB'}).then(()=>{},()=>{});
-        })
-      }
-    }
-    if (process.env.VENDOR === 'edge') {
-      browser.tabs.query({ url: extensionURL, currentWindow: true }, querySuccess)
-    } else {
-      browser.tabs.query({ url: extensionURL, currentWindow: true }).then(querySuccess, (error) => { console.log(`Error: ${error}`) })
-    }
-  })
-})
-
-browser.runtime.onInstalled.addListener((details) => {
-  console.log('previousVersion', details.previousVersion)
-  getAllEnsContentHashes()
-})
 
 browser.omnibox.onInputStarted.addListener(() => {
   console.log('[' + new Date() + '] omnibox event: onInputStarted')
@@ -49,14 +11,14 @@ browser.omnibox.onInputChanged.addListener((text, suggest) => {
   if (text.endsWith('.eth')) {
     const network = getCurrentEtherNetwork().shortName
     const suggestions = []
-    const cache = dataAPI.get(network, text)
+    const cache = cacheAPI.get(network, text)
     if (cache) {
-      suggest(cache)
-      if (cache && cache.length > 0) {
-        browser.omnibox.setDefaultSuggestion({
-          description: cache[0].description
-        })
-      }
+      suggest(cache.slice(1))
+      // if (cache && cache.length > 0) {
+      //   browser.omnibox.setDefaultSuggestion({
+      //     description: cache[0].description
+      //   })
+      // }
     }
     getCurrentEtherProvider().getResolver(text).then((resolver) => {
       console.info(resolver)
@@ -106,13 +68,13 @@ browser.omnibox.onInputChanged.addListener((text, suggest) => {
           })
           if (!cache || JSON.stringify(cache) !== JSON.stringify(suggestions)) {
             console.info('cache did not hit')
-            suggest(suggestions)
-            if (suggestions && suggestions.length > 0) {
-              browser.omnibox.setDefaultSuggestion({
-                description: suggestions[0].description
-              })
-            }
-            dataAPI.set(network, text, suggestions)
+            suggest(suggestions.slice(1))
+            // if (suggestions && suggestions.length > 0) {
+            //   browser.omnibox.setDefaultSuggestion({
+            //     description: suggestions[0].description
+            //   })
+            // }
+            cacheAPI.set(network, text, suggestions)
           }
         })
       }
@@ -126,15 +88,18 @@ browser.omnibox.onInputEntered.addListener((text, disposition) => {
   if (text.substr(0, 7) === 'http://' || text.substr(0, 8) === 'https://') {
     url = text
   } else if (text.substr(0, 7) === 'ipfs://' || text.substr(0, 6) === '/ipfs/') {
-    url = `https://ipfs.io/${text.replace('ipfs://', 'ipfs/')}`
+    const config = getAllEnsContentHashes().find(d => d.name === 'ipfs/ipns')
+    url = `${config.gateway}/${text.replace('ipfs://', 'ipfs/')}`
   } else if (text.substr(0, 7) === 'ipns://' || text.substr(0, 6) === '/ipns/') {
-    url = `https://ipfs.io/${text.replace('ipns://', 'ipns/')}`
+    const config = getAllEnsContentHashes().find(d => d.name === 'ipfs/ipns')
+    url = `${config.gateway}/${text.replace('ipns://', 'ipns/')}`
   } else if (text.substr(0, 6) === 'bzz://') {
-    url = `https://swarm-gateways.net/${text.replace('bzz://', 'bzz:/')}`
+    const config = getAllEnsContentHashes().find(d => d.name === 'swarm')
+    url = `${config.gateway}/${text.replace('bzz://', 'bzz:/')}`
   } else {
     if (text.endsWith('.eth')) {
       const network = getCurrentEtherNetwork().shortName
-      const cache = dataAPI.get(network, text)
+      const cache = cacheAPI.get(network, text)
       if (cache && cache.length > 0) {
         url = cache[0].content
         if (isEthAddress(url)) {
@@ -147,7 +112,18 @@ browser.omnibox.onInputEntered.addListener((text, disposition) => {
       url = `${getCurrentEtherNetwork().explorerUrl}/address/` + text
     }
   }
-  browser.tabs.create({
+  browser.tabs.update({
     url
   })
+  // switch (disposition) {
+  //   case 'currentTab':
+  //     browser.tabs.update({ url })
+  //     break
+  //   case 'newForegroundTab':
+  //     browser.tabs.create({ url })
+  //     break
+  //   case 'newBackgroundTab':
+  //     browser.tabs.create({ url, active: false })
+  //     break
+  // }
 })

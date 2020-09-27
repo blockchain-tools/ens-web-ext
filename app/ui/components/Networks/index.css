@@ -8,3 +8,11 @@
   width: 200px;
   border-radius: 82px;
 }
+
+@media screen and (max-width:750px){
+  .network-indicator {
+    padding: 3px 1px;
+    width: 200px;
+    border-radius: 42px;
+  }
+}

@@ -1,0 +1,7 @@
+.editable-div {
+  border: 1px solid transparent;
+}
+.editable-div:focus {
+  border: 1px solid red;
+  background-color:yellow;
+}
