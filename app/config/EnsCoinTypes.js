@@ -1,118 +1,113 @@
+/* eslint-disable no-template-curly-in-string */
 export const EnsCoinTypes = [
   {
     name: 'Bitcoin',
     value: 0,
     shortName: 'BTC',
-    explorer: 'https://www.blockchain.com/btc/address/'
+    explorer: 'https://www.blockchain.com/btc/address/${account}'
   },
   {
     name: 'Litecoin',
     value: 2,
-    shortName: 'LTC'
+    shortName: 'LTC',
+    explorer: 'https://ltc.btc.com/${account}'
   },
   {
     name: 'Dogecoin',
     value: 3,
-    shortName: 'DOGE'
+    shortName: 'DOGE',
+    explorer: 'https://dogechain.info/address/${account}'
   },
   {
     name: 'DASH',
     value: 5,
-    shortName: 'DASH'
+    shortName: 'DASH',
+    explorer: 'https://insight.dash.org/insight/address/${account}'
   },
 
   {
     name: 'Monacoin',
     value: 22,
-    shortName: 'MONA'
+    shortName: 'MONA',
+    explorer: 'https://mona.chainsight.info/address/${account}'
   },
   {
     name: 'XEM',
     value: 43,
-    shortName: 'XEM'
+    shortName: 'XEM',
+    explorer: 'https://explorer.nemtool.com/#/s_account?account=${account}'
   },
   {
     name: 'Ethereum',
     value: 60,
-    shortName: 'ETH'
+    shortName: 'ETH',
+    explorer: 'https://etherscan.io//address/${account}'
   },
   {
     name: 'Ethereum Classic',
     value: 61,
-    shortName: 'ETC'
+    shortName: 'ETC',
+    explorer: 'https://blockscout.com/etc/mainnet/address/${account}'
   },
   {
     name: 'cosmos',
     value: 118,
-    shortName: 'ATOM'
+    shortName: 'ATOM',
+    explorer: 'https://www.mintscan.io/cosmos/account/${account}'
   },
   {
     name: 'Rootstock',
     value: 137,
-    shortName: 'RSK'
+    shortName: 'RSK',
+    explorer: 'https://explorer.rsk.co/address/${account}'
   },
   {
     name: 'Ripple',
     value: 144,
-    shortName: 'XRP'
+    shortName: 'XRP',
+    explorer: 'https://xrpscan.com/account/${account}'
   },
   {
     name: 'Bitcoin Cash',
     value: 145,
     shortName: 'BCH',
-    explorer: 'https://www.blockchain.com/bch/address/'
+    explorer: 'https://blockchair.com/bitcoin-cash/address/${account}'
   },
   {
     name: 'XLM',
     value: 148,
-    shortName: 'XLM'
+    shortName: 'XLM',
+    explorer: 'https://blockchair.com/stellar/account/${account}'
   },
   {
     name: 'EOS',
     value: 194,
-    shortName: 'EOS'
+    shortName: 'EOS',
+    explorer: 'https://bloks.io/account/${account}'
   },
   {
     name: 'TRX',
     value: 195,
-    shortName: 'TRX'
+    shortName: 'TRX',
+    explorer: 'https://trx.tokenview.com/en/address/${account}'
   },
   {
     name: 'KSM',
     value: 434,
-    shortName: 'KSM'
+    shortName: 'KSM',
+    explorer: 'https://kusama.polkastats.io/account/${account}'
   },
   {
     name: 'XDAI',
     value: 700,
-    shortName: 'XDAI'
+    shortName: 'XDAI',
+    explorer: 'https://blockscout.com/poa/xdai/address/${account}'
   },
   {
     name: 'Binance',
     value: 714,
-    shortName: 'BNB'
+    shortName: 'BNB',
+    explorer: 'https://explorer.binance.org/address/${account}'
   }
 
 ]
-
-// browser.runtime.onStartup && browser.runtime.onStartup.addListener(() => {
-//   console.log('extension started: ' + Date.now())
-// })
-
-// const extensionURL = browser.extension.getURL('') + 'index.html'
-
-// browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-//   if (sender && sender.url.startsWith(extensionURL)) {
-//     if (request.command === 'GetAllEnsCoinTypes') {
-//       sendResponse(getAllEnsCoinTypes())
-//     }
-//   }
-// })
-
-// function getAllEnsCoinTypes () {
-//   return EnsCoinTypes
-// }
-
-// export {
-//   getAllEnsCoinTypes
-// }
