@@ -2,11 +2,20 @@
   height: 75px;
   width: 75px;
 }
-
+.header-logo+span{
+  display: inline-block;
+  line-height: 75px;
+  margin-left: 30px;
+  font-weight: bolder;
+  font-style: italic;
+}
 
 @media screen and (max-width:750px){
   .header-logo {
     height: 55px;
     width: 55px;
+  }
+  .header-logo+span{
+    line-height: 55px;
   }
 }

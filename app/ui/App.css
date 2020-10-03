@@ -30,3 +30,8 @@ html,body, #root {
 /* .main .tab-content > div {
   height: 100%;
 } */
+
+a:link    {color:black;}
+a:visited {color:black;}
+a:hover   {color:red;}
+a:active  {color:yellow;}

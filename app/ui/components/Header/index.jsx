@@ -1,16 +1,24 @@
 import React from 'react'
 import Networks from '../Networks'
 import './index.css'
+import Navbar from 'react-bootstrap/Navbar'
 
 function index () {
   return (
     <div style={{ position: 'sticky', top: 0, zIndex: 9999 }}>
-      <nav className="navbar navbar-light bg-light">
-        <a className="navbar-brand" href="#">
-          <img src="../../../images/ens.svg" className="d-inline-block align-top header-logo" alt="ens logo" />
-        </a>
+      <Navbar bg="light" variant="light" expand={false} style={{ paddingBottom: 0, paddingTop: 0 }}>
+        <Navbar.Brand href="#" style={{ paddingBottom: 0, paddingTop: 0 }}>
+          <img
+            alt="logo"
+            src="../../../images/bridge.png"
+            className="d-inline-block align-top header-logo"
+            height={45}
+            width={45}
+          />
+          <span>***.eth  ----{'>'} https://</span>
+        </Navbar.Brand>
         <Networks />
-      </nav>
+      </Navbar>
     </div>
   )
 }

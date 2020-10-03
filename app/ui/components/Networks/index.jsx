@@ -28,7 +28,7 @@ export default function index () {
             setCurrentEtherNetwork(message)
           })
       }}>
-        <Dropdown.Toggle id="dropdown-basic" className="network-indicator">
+        <Dropdown.Toggle id="dropdown-basic" variant="Secondary" className="network-indicator">
           {CurrentEtherNetwork && CurrentEtherNetwork.name}
         </Dropdown.Toggle>
 

@@ -13,7 +13,7 @@ let configuraion = {
   CurrentEtherNetwork: EtherNetworks.length > 0 ? EtherNetworks[1] : null
 }
 
-const extensionURL = browser.extension.getURL('') + 'index.html'
+const extensionURL = browser.extension.getURL('')
 
 browser.runtime.onInstalled && browser.runtime.onInstalled.addListener(() => {
   browser.storage.local.get('configuraion').then((data) => {
@@ -56,6 +56,12 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
       )
     } else if (request.command === 'GetConfiguration') {
       sendResponse(configuraion[request.key])
+    } else if (request.command === 'Notification') {
+      const params = {
+        ...request.value,
+        iconUrl: './images/bridge.png'
+      }
+      browser.notifications.create('', params)
     }
 
     return true

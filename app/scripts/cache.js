@@ -1,5 +1,5 @@
 let ensMap = {}
-const extensionURL = browser.extension.getURL('') + 'index.html'
+const extensionURL = browser.extension.getURL('')
 
 browser.runtime.onStartup && browser.runtime.onStartup.addListener(function () {
   console.log('extension started: ' + Date.now())
@@ -26,19 +26,20 @@ browser.runtime.onInstalled.addListener(function () {
     browser.storage.sync.get('ensMap').then(loadEnsMapSuccess, (e) => { console.log(e); ensMap = {} })
   }
 
+  const defaultUrl = extensionURL + 'index.html'
   const queryTabSuccess = function (tabs) {
     if (tabs && tabs.length > 0) {
       browser.tabs.update(tabs[0].id, { active: true }).then(function (tab) {})
     } else {
       browser.tabs.create({
-        url: extensionURL
+        url: defaultUrl
       }).then(function (tab) {})
     }
   }
   if (process.env.VENDOR === 'edge') {
-    browser.tabs.query({ url: extensionURL, currentWindow: true }, queryTabSuccess)
+    browser.tabs.query({ url: defaultUrl, currentWindow: true }, queryTabSuccess)
   } else {
-    browser.tabs.query({ url: extensionURL, currentWindow: true }).then(queryTabSuccess, (error) => { console.log(`Error: ${error}`) })
+    browser.tabs.query({ url: defaultUrl, currentWindow: true }).then(queryTabSuccess, (error) => { console.log(`Error: ${error}`) })
   }
 })
 const cacheAPI = {
