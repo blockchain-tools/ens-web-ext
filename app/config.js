@@ -2,15 +2,13 @@ import { EnsCoinTypes } from './config/EnsCoinTypes'
 import { EnsTextKeys } from './config/EnsTextKeys'
 import { EnsContentHashes } from './config/EnsContentHashes'
 import { EtherNetworks } from './config/EtherNetworks'
-
 import { ethers } from 'ethers'
-
 let configuraion = {
   EnsCoinTypes,
   EnsTextKeys,
   EnsContentHashes,
   EtherNetworks,
-  CurrentEtherNetwork: EtherNetworks.length > 0 ? EtherNetworks[1] : null
+  CurrentEtherNetwork: EtherNetworks.length > 0 ? EtherNetworks[0] : null
 }
 
 const extensionURL = browser.extension.getURL('')
@@ -75,10 +73,15 @@ const getAllEtherNetworks = () => configuraion.EtherNetworks
 const getCurrentEtherNetwork = () => configuraion.CurrentEtherNetwork
 
 const getCurrentEtherProvider = () => {
-  const options = {
-    infura: '4874216190994ef392d1ab05a980fd79'
-  }
-  return ethers.getDefaultProvider(getCurrentEtherNetwork().shortName, options)
+  // return new ethers.providers.InfuraProvider(getCurrentEtherNetwork().shortName, '4874216190994ef392d1ab05a980fd79')
+  // const options = {
+  //   infura: '4874216190994ef392d1ab05a980fd79'
+  //   etherscan: 'BFREHUEBKMHVHFA1K8X34IRG8K4CWFFVW4',
+  // }
+  // return ethers.getDefaultProvider(getCurrentEtherNetwork().shortName, options)
+  const infuraProvider = new ethers.providers.InfuraProvider(getCurrentEtherNetwork().shortName, '4874216190994ef392d1ab05a980fd79')
+  const etherscanProvider = new ethers.providers.EtherscanProvider(getCurrentEtherNetwork().shortName, 'BFREHUEBKMHVHFA1K8X34IRG8K4CWFFVW4')
+  return new ethers.providers.FallbackProvider([infuraProvider, etherscanProvider])
 }
 export {
   getAllEnsCoinTypes,

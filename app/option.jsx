@@ -27,7 +27,7 @@ const donationHandler = () => {
           to,
           // "gas": "0x76c0", // 30400
           // "gasPrice": "0x9184e72a000", // 10000000000000
-          value: '0xde0b6b3a7640000' // 1000000000000000000
+          value: '0x11c37937e08000' // 5000000000000000
         }]
         provider.sendAsync({
           method: 'eth_sendTransaction',

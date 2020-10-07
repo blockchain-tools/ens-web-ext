@@ -1,14 +1,14 @@
 {
   "appName": {
-    "message": "ens-extension",
+    "message": "ens-web-ext",
     "description": "The name of the application"
   },
   "appShortName": {
-    "message": "web extension for Ethereum Name Service",
-    "description": "The short_name (maximum of 12 characters recommended) is a short version of the app's name."
+    "message": "ens",
+    "description": "web extension for Ethereum Name Service"
   },
   "appDescription": {
-    "message": "this is bridge between decentrized and traditional www",
-    "description": "The description of the application"
+    "message": "bridge for Ethereum and WWW",
+    "description": "this is bridge between decentrized and traditional www"
   }
 }

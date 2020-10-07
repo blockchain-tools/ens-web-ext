@@ -1,8 +1,10 @@
 # ens-web-ext
 
-web extension for Ethereum Name Service.
+Web extension for Ethereum Name Service.
 
-bridge between decentrized and traditional www
+A bridge between decentrized and traditional www.
+
+Just search in the address-bar: start with “ens” follow with a space
 
 ## Install
 

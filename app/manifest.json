@@ -1,7 +1,7 @@
 {
-  "name": "__MSG_appName__",
-  "short_name": "__MSG_appShortName__",
-  "description": "__MSG_appDescription__",
+  "name": "ens-web-ext",
+  "short_name": "ens-web-ext",
+  "description": "bridge between decentrized and traditional www",
   "version": "0.0.1",
   "manifest_version": 2,
   "default_locale": "en",

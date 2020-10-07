@@ -41,7 +41,7 @@ export const EnsCoinTypes = [
     name: 'Ethereum',
     value: 60,
     shortName: 'ETH',
-    explorer: 'https://etherscan.io//address/${account}'
+    explorer: 'https://etherscan.io/address/${account}'
   },
   {
     name: 'Ethereum Classic',

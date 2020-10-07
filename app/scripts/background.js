@@ -40,7 +40,9 @@ browser.omnibox.onInputChanged.addListener((text, suggest) => {
           return resolver.getText(textKey).then((data) => { return { type: 'text', key: textKey, data: data, fullUrl: toFullUrl(data, 'text', textKey) } }).catch(() => {})
         }))
         fns = fns.concat(getAllEnsCoinTypes().map((coinType) => {
-          return resolver.getAddress(coinType.value).then((data) => { return { type: 'coin', key: coinType.shortName, data: data, fullUrl: toFullUrl(data, 'coin', coinType.shortName) } }).catch(() => {})
+          return resolver.getAddress(coinType.value).then((data) => { return { type: 'coin', key: coinType.shortName, data: data, fullUrl: toFullUrl(data, 'coin', coinType.shortName) } }).catch((e) => {
+            console.log(e)
+          })
         }))
 
         Promise.all(fns).then(values => {

@@ -10,13 +10,13 @@ function index () {
   return (
     <Container className='main' fluid={true}>
       <Tabs defaultActiveKey="text" id="uncontrolled-tab-example">
-        <Tab eventKey="text" title="Text">
+        <Tab eventKey="text" title="Text Record">
           <Text />
         </Tab>
-        <Tab eventKey="contentHash" title="ContentHash">
+        <Tab eventKey="contentHash" title="Content Hash">
           <ContentHash />
         </Tab>
-        <Tab eventKey="address" title="Address">
+        <Tab eventKey="address" title="Other Address">
           <Address />
         </Tab>
       </Tabs>
