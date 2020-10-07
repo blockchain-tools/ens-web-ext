@@ -10,11 +10,9 @@ Just search in the address-bar: start with “ens” follow with a space
 
 ![how it looks like](/promo/Screenshot0_1280x800.png)
 
-![text record](/promo/Screenshot1_1280x800.png)
-
-![content hash](/promo/Screenshot2_1280x800.png)
-
-![coin type](/promo/Screenshot3_1280x800.png)
+| text record | content hash | coin type |
+|-------|---------|-------|
+| ![text record](/promo/Screenshot1_1280x800.png) | ![content hash](/promo/Screenshot2_1280x800.png)| ![coin type](/promo/Screenshot3_1280x800.png)|
 
 
 
