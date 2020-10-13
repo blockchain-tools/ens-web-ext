@@ -1,7 +1,8 @@
 {
-  "name": "ens",
-  "short_name": "ens",
-  "description": "web extension for ens, the bridge between blockchain-network and world-wide-web",
+  "name": "ENS: Bridge for Blockchain and World Wide Web",
+  "__firefox__name": "ENS",
+  "short_name": "ENS",
+  "description": "An extension for Ethereum Name Service, the bridge between blockchain-network and world-wide-web",
   "version": "0.0.2",
   "manifest_version": 2,
   "default_locale": "en",
@@ -30,15 +31,5 @@
     "storage",
     "notifications"
   ],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "chrome_settings_overrides": {
-    "search_provider": {
-      "name": "ens",
-      "search_url": "https://app.ens.domains/name/{searchTerms}",
-      "keyword": "ens",
-      "favicon_url": "https://app.ens.domains/favicon.ico",
-      "is_default": false,
-      "encoding": "UTF-8"
-    }
-  }
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

@@ -1,6 +1,6 @@
 # Introduction
 
-Web extension for Ethereum Domain Name Service([ENS](https://app.ens.domains/))
+Web extension for Ethereum Name Service([ENS](https://app.ens.domains/))
 
 A bridge between ongoing blockchain-network and traditional world-wide-web
 
