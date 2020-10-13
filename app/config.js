@@ -2,7 +2,9 @@ import { EnsCoinTypes } from './config/EnsCoinTypes'
 import { EnsTextKeys } from './config/EnsTextKeys'
 import { EnsContentHashes } from './config/EnsContentHashes'
 import { EtherNetworks } from './config/EtherNetworks'
-import { ethers } from 'ethers'
+import ENS, { getEnsAddress } from '@ensdomains/ensjs'
+import Web3 from 'web3'
+
 let configuraion = {
   EnsCoinTypes,
   EnsTextKeys,
@@ -13,7 +15,7 @@ let configuraion = {
 
 const extensionURL = browser.extension.getURL('')
 
-browser.runtime.onInstalled && browser.runtime.onInstalled.addListener(() => {
+const recoverConfiguration = () => {
   browser.storage.local.get('configuraion').then((data) => {
     if (!data || Object.keys(data).length === 0) {
       configuraion = {
@@ -24,7 +26,7 @@ browser.runtime.onInstalled && browser.runtime.onInstalled.addListener(() => {
         CurrentEtherNetwork: EtherNetworks.length > 0 ? EtherNetworks[1] : null
       }
     } else {
-      configuraion = Object.assign(configuraion, data)
+      configuraion = Object.assign(configuraion, data.configuraion)
     }
   }, (e) => {
     console.error(e)
@@ -36,8 +38,13 @@ browser.runtime.onInstalled && browser.runtime.onInstalled.addListener(() => {
       CurrentEtherNetwork: EtherNetworks.length > 0 ? EtherNetworks[1] : null
     }
   })
+}
+browser.runtime.onStartup && browser.runtime.onStartup.addListener(() => {
+  recoverConfiguration()
 })
-
+browser.runtime.onInstalled && browser.runtime.onInstalled.addListener(function () {
+  recoverConfiguration()
+})
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (sender && sender.url.startsWith(extensionURL)) {
     if (request.command === 'SaveConfiguration') {
@@ -73,15 +80,9 @@ const getAllEtherNetworks = () => configuraion.EtherNetworks
 const getCurrentEtherNetwork = () => configuraion.CurrentEtherNetwork
 
 const getCurrentEtherProvider = () => {
-  // return new ethers.providers.InfuraProvider(getCurrentEtherNetwork().shortName, '4874216190994ef392d1ab05a980fd79')
-  // const options = {
-  //   infura: '4874216190994ef392d1ab05a980fd79'
-  //   etherscan: 'BFREHUEBKMHVHFA1K8X34IRG8K4CWFFVW4',
-  // }
-  // return ethers.getDefaultProvider(getCurrentEtherNetwork().shortName, options)
-  const infuraProvider = new ethers.providers.InfuraProvider(getCurrentEtherNetwork().shortName, '4874216190994ef392d1ab05a980fd79')
-  const etherscanProvider = new ethers.providers.EtherscanProvider(getCurrentEtherNetwork().shortName, 'BFREHUEBKMHVHFA1K8X34IRG8K4CWFFVW4')
-  return new ethers.providers.FallbackProvider([infuraProvider, etherscanProvider])
+  const provider = new Web3.providers.HttpProvider(getCurrentEtherNetwork().provider)
+  const ens = new ENS({ provider, ensAddress: getEnsAddress(`${getCurrentEtherNetwork().networkId}`) })
+  return ens
 }
 export {
   getAllEnsCoinTypes,

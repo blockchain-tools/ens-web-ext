@@ -1,31 +1,24 @@
 let ensMap = {}
 const extensionURL = browser.extension.getURL('')
 
-browser.runtime.onStartup && browser.runtime.onStartup.addListener(function () {
-  console.log('extension started: ' + Date.now())
+const recoverCache = () => {
   var getSuccess = function (items) {
     ensMap = (items && items.ensMap) || {}
   }
   if (process.env.VENDOR === 'edge') {
-    browser.storage.sync.get('ensMap', getSuccess)
+    browser.storage.local.get('ensMap', getSuccess)
   } else {
-    browser.storage.sync.get('ensMap').then(getSuccess, (e) => { console.log(e); ensMap = {} })
+    browser.storage.local.get('ensMap').then(getSuccess, (e) => { console.log(e); ensMap = {} })
   }
+}
+browser.runtime.onStartup && browser.runtime.onStartup.addListener(function () {
+  console.log('extension started: ' + Date.now())
+  recoverCache()
 })
 
 browser.runtime.onInstalled.addListener(function () {
   console.log('extension onInstalled: ' + Date.now())
-
-  const loadEnsMapSuccess = function (items) {
-    ensMap = (items && items.ensMap) || {}
-    console.info(ensMap)
-  }
-  if (process.env.VENDOR === 'edge') {
-    browser.storage.sync.get('ensMap', loadEnsMapSuccess)
-  } else {
-    browser.storage.sync.get('ensMap').then(loadEnsMapSuccess, (e) => { console.log(e); ensMap = {} })
-  }
-
+  recoverCache()
   const defaultUrl = extensionURL + 'index.html'
   const queryTabSuccess = function (tabs) {
     if (tabs && tabs.length > 0) {
@@ -48,6 +41,7 @@ const cacheAPI = {
       ensMap[network] = {}
     }
     ensMap[network][ensName] = JSON.stringify(object)
+    // console.info('set', ensMap)
     browser.storage.local.set({ ensMap: ensMap })
   },
   get (network, ensName) {
