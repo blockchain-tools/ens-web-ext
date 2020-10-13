@@ -1,7 +1,7 @@
-import { EnsCoinTypes } from './config/EnsCoinTypes'
-import { EnsTextKeys } from './config/EnsTextKeys'
-import { EnsContentHashes } from './config/EnsContentHashes'
-import { EtherNetworks } from './config/EtherNetworks'
+import { EnsCoinTypes } from './../constants/EnsCoinTypes'
+import { EnsTextKeys } from './../constants/EnsTextKeys'
+import { EnsContentHashes } from './../constants/EnsContentHashes'
+import { EtherNetworks } from './../constants/EtherNetworks'
 import ENS, { getEnsAddress } from '@ensdomains/ensjs'
 import Web3 from 'web3'
 
@@ -60,6 +60,7 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
         }
       )
     } else if (request.command === 'GetConfiguration') {
+      console.info('configuration',request.key)
       sendResponse(configuraion[request.key])
     } else if (request.command === 'Notification') {
       const params = {

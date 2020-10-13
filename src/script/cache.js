@@ -36,13 +36,13 @@ browser.runtime.onInstalled.addListener(function () {
   }
 })
 const cacheAPI = {
-  set (network, ensName, object) {
+  set: async (network, ensName, object) => {
     if (!ensMap[network]) {
       ensMap[network] = {}
     }
     ensMap[network][ensName] = JSON.stringify(object)
     // console.info('set', ensMap)
-    browser.storage.local.set({ ensMap: ensMap })
+    await browser.storage.local.set({ ensMap: ensMap })
   },
   get (network, ensName) {
     if (ensMap[network] && ensMap[network][ensName]) {

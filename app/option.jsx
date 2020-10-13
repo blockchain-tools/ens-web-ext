@@ -94,29 +94,27 @@ const donationHandler = () => {
 }
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ListGroup className='list-group'>
-      <ListGroup.Item>
-        <a rel="noreferrer" target='_blank' href='./index.html'>
-          <img src='./images/settings.png' />Configuration
-        </a>
-      </ListGroup.Item>
-      <ListGroup.Item>
-        <a rel="noreferrer" target='_blank' href='https://github.com/blockchain-tools/ens-web-ext/issues'>
-          <img src='./images/github.png' />Feed back
-        </a>
-      </ListGroup.Item>
-      <ListGroup.Item>
-        <a rel="noreferrer" target='_blank' href='https://app.ens.domains/'>
-          <img src='./images/ens.png' width='20' height='20' />About ENS
-        </a>
-      </ListGroup.Item>
-      <ListGroup.Item>
-        <a onClick={donationHandler}>
-          <img src='./images/donation.png' width='20' height='20' />Donation
-        </a>
-      </ListGroup.Item>
-    </ListGroup>
-  </React.StrictMode>,
+  <ListGroup className='list-group'>
+    <ListGroup.Item>
+      <a rel="noreferrer" target='_blank' href='./index.html'>
+        <img src='./images/settings.png' />Configuration
+      </a>
+    </ListGroup.Item>
+    <ListGroup.Item>
+      <a rel="noreferrer" target='_blank' href='https://github.com/blockchain-tools/ens-web-ext/issues'>
+        <img src='./images/github.png' />Feed back
+      </a>
+    </ListGroup.Item>
+    <ListGroup.Item>
+      <a rel="noreferrer" target='_blank' href='https://app.ens.domains/'>
+        <img src='./images/ens.png' width='20' height='20' />About ENS
+      </a>
+    </ListGroup.Item>
+    <ListGroup.Item>
+      <a onClick={donationHandler}>
+        <img src='./images/donation.png' width='20' height='20' />Donation
+      </a>
+    </ListGroup.Item>
+  </ListGroup>,
   document.getElementById('root')
 )

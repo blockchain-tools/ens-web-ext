@@ -1,6 +1,6 @@
 import ethers from 'ethers'
 import contentHash from 'content-hash/dist/index'
-import { getAllEnsContentHashes, getAllEnsCoinTypes, getCurrentEtherNetwork } from './../config.js'
+import { getAllEnsContentHashes, getAllEnsCoinTypes, getCurrentEtherNetwork } from './config'
 
 function uInt8ArrayToString (array) {
   var dataString = ''

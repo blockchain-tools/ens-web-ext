@@ -2,8 +2,8 @@ import React from 'react'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Container from 'react-bootstrap/Container'
-import Text from '../../components/Text'
-import Address from '../../components/Address'
+import TextRecord from '../../components/TextRecord'
+import CoinAddress from '../../components/CoinAddress'
 import ContentHash from '../../components/ContentHash'
 
 function index () {
@@ -11,13 +11,13 @@ function index () {
     <Container className='main' fluid={true}>
       <Tabs defaultActiveKey="text" id="uncontrolled-tab-example">
         <Tab eventKey="text" title="Text Record">
-          <Text />
+          <TextRecord />
         </Tab>
         <Tab eventKey="contentHash" title="Content Hash">
           <ContentHash />
         </Tab>
-        <Tab eventKey="address" title="Other Address">
-          <Address />
+        <Tab eventKey="address" title="Coin Address">
+          <CoinAddress />
         </Tab>
       </Tabs>
     </Container>

@@ -28,21 +28,21 @@ function index () {
   return (
     <Card>
       <Card.Body>
-        <Card.Text>
-          <Table responsive>
-            <thead>
-              <tr>
-                <th>Protocal</th>
-                <th>Gateway</th>
-              </tr>
-            </thead>
+        <Table responsive>
+          <thead>
+            <tr>
+              <th>Protocal</th>
+              <th>Gateway</th>
+            </tr>
+          </thead>
+          <tbody>
             {
               EnsContentHashes && EnsContentHashes.map((d) => {
                 return (
                   <tr key={d.name}>
                     <td>{d.name}</td>
                     <td>
-                      <EditableInput label={d.gateway} onBlur={(newText) => update({
+                      <EditableInput key={d.name} label={d.gateway} onBlur={(newText) => update({
                         ...d,
                         gateway: newText
                       })} />
@@ -51,11 +51,10 @@ function index () {
                 )
               })
             }
-          </Table>
-        </Card.Text>
-        <Card.Footer style={{ textAlign: 'right' }}><a target='_blank' rel="noreferrer" href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1577.md">eip-1577</a></Card.Footer>
-
+          </tbody>
+        </Table>
       </Card.Body>
+      <Card.Footer style={{ textAlign: 'right' }}><a target='_blank' rel="noreferrer" href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1577.md">eip-1577</a></Card.Footer>
     </Card>
   )
 }

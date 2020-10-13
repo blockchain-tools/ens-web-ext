@@ -1,5 +1,4 @@
 import React, { useState, useLayoutEffect } from 'react'
-// import { getCurrentEtherNetwork, getAllEtherNetworks } from './../../../config'
 import './index.css'
 import Dropdown from 'react-bootstrap/Dropdown'
 

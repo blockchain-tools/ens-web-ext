@@ -1,9 +1,7 @@
 import React, { useState, useLayoutEffect } from 'react'
-// import Container from 'react-bootstrap/Container'
-
 import Card from 'react-bootstrap/Card'
 import { WithContext as ReactTags } from 'react-tag-input'
-import { EnsTextKeys as DefaultEnsTextKeys } from '../../../config/EnsTextKeys'
+import { EnsTextKeys as DefaultEnsTextKeys } from '../../../constants/EnsTextKeys'
 import './index.css'
 
 const KeyCodes = {
@@ -24,7 +22,7 @@ function index () {
       })
   }, [])
   const update = (newEnsTextKeys) => {
-    console.info(newEnsTextKeys)
+    // console.info(newEnsTextKeys)
     browser.runtime.sendMessage({ command: 'SaveConfiguration', key: 'EnsTextKeys', value: newEnsTextKeys })
       .then((message) => {
         setTags(message)
@@ -55,39 +53,37 @@ function index () {
   const handleTagClick = (index) => {
     console.log('The tag at index ' + index + ' was clicked')
   }
-  console.info(tags, suggestions)
+  // console.info(tags, suggestions)
   return (
     <Card>
       <Card.Body>
-        <Card.Text style={{ width: '100%' }}>
-          <div className="text-dark">
-            This extension would search all text-records with below keys (default keys are <span className="text-muted">{DefaultEnsTextKeys.join(', ')}</span>).
-          </div>
-          <br/>
-          <ReactTags
-            tags={tags.map((key) => {
-              return {
-                id: key,
-                text: key
-              }
-            })}
-            suggestions={suggestions.map((key) => {
-              return {
-                id: key,
-                text: key
-              }
-            })}
-            delimiters={delimiters}
-            handleDelete={handleDelete}
-            handleAddition={handleAddition}
-            handleDrag={handleDrag}
-            handleTagClick={handleTagClick}
-            autofocus={true}
-          />
-        </Card.Text>
-        <Card.Footer style={{ textAlign: 'right' }}><a target='_blank' rel="noreferrer" href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-634.md">eip-634</a></Card.Footer>
+        <div className="text-dark">
+          This extension would search all text-records with below keys (default keys are <span className="text-muted">{DefaultEnsTextKeys.join(', ')}</span>).
+        </div>
+        <br/>
+        <ReactTags
+          tags={tags.map((key) => {
+            return {
+              id: key,
+              text: key
+            }
+          })}
+          suggestions={suggestions.map((key) => {
+            return {
+              id: key,
+              text: key
+            }
+          })}
+          delimiters={delimiters}
+          handleDelete={handleDelete}
+          handleAddition={handleAddition}
+          handleDrag={handleDrag}
+          handleTagClick={handleTagClick}
+          autofocus={true}
+        />
 
       </Card.Body>
+      <Card.Footer style={{ textAlign: 'right' }}><a target='_blank' rel="noreferrer" href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-634.md">eip-634</a></Card.Footer>
     </Card>
   )
 }
